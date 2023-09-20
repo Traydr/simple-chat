@@ -16,8 +16,10 @@ css `npm run build` needs to be executed.
 
 ## Links
 
-- [Spring Boot and Several Dependencies](https://spring.io)
+- [Spring](https://spring.io)
+- [Spring: accessing data jpa](https://spring.io/guides/gs/accessing-data-jpa/)
+- [Spring: rest service](https://spring.io/guides/gs/rest-service/)
 - [TailwindCSS Docs](https://tailwindcss.com/docs/)
-- [Spring Boot with Thymeleaf and TailwindCSS - Maciej Walkowiak](https://maciejwalkowiak.com/blog/spring-boot-thymeleaf-tailwindcss/) 
-- [Introduction to Using Thymeleaf in Spring - baeldung](https://www.baeldung.com/thymeleaf-in-spring-mvc)
-- [Setting up a local postgres database - Prisma](https://www.prisma.io/dataguide/postgresql/setting-up-a-local-postgresql-database#setting-up-postgresql-on-windows)
+- [Maciej Walkowiak: Spring Boot with Thymeleaf and TailwindCSS](https://maciejwalkowiak.com/blog/spring-boot-thymeleaf-tailwindcss/) 
+- [Baeldung: Introduction to Using Thymeleaf in Spring](https://www.baeldung.com/thymeleaf-in-spring-mvc)
+- [Prisma: Setting up a local postgres database](https://www.prisma.io/dataguide/postgresql/setting-up-a-local-postgresql-database#setting-up-postgresql-on-windows)
