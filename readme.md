@@ -17,6 +17,7 @@ css `npm run build` needs to be executed.
 ## Links
 
 - [Spring](https://spring.io)
+- [Spring: Guides](https://spring.io/guides)
 - [Spring: accessing data jpa](https://spring.io/guides/gs/accessing-data-jpa/)
 - [Spring: rest service](https://spring.io/guides/gs/rest-service/)
 - [TailwindCSS Docs](https://tailwindcss.com/docs/)
