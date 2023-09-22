@@ -24,3 +24,4 @@ css `npm run build` needs to be executed.
 - [Maciej Walkowiak: Spring Boot with Thymeleaf and TailwindCSS](https://maciejwalkowiak.com/blog/spring-boot-thymeleaf-tailwindcss/) 
 - [Baeldung: Introduction to Using Thymeleaf in Spring](https://www.baeldung.com/thymeleaf-in-spring-mvc)
 - [Prisma: Setting up a local postgres database](https://www.prisma.io/dataguide/postgresql/setting-up-a-local-postgresql-database#setting-up-postgresql-on-windows)
+- [DigitalOcean: Postgres on Ubuntu quickstart](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart)
