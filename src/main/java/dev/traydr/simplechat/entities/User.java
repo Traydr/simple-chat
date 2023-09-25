@@ -15,8 +15,6 @@ public class User {
     private String username;
     @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "salt", nullable = false)
-    private String salt;
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
     @ManyToMany
@@ -36,8 +34,7 @@ public class User {
         this.username = username;
     }
 
-    public User() {
-    }
+    public User() {}
 
     public Long getUid() {
         return uid;
@@ -63,14 +60,6 @@ public class User {
         this.password = password;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -81,7 +70,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [uid=" + uid + ", username=" + username + ", password=" + password + ", salt=" + salt
-                + ", created at=" + createdAt.toString() + "]";
+        return "User [uid=" + uid + ", username=" + username + ", password=" + password +
+                ", created at=" + createdAt.toString() + "]";
     }
 }
