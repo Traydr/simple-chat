@@ -10,10 +10,16 @@ import java.time.ZonedDateTime;
 @Entity
 @Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
+    @Column(name = "username", nullable = false)
     private String username;
+    @Column(name = "password", nullable = false)
     private String password;
+    @Column(name = "salt", nullable = false)
     private String salt;
+    @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
     public User(String username) {
@@ -23,8 +29,6 @@ public class User {
     public User() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getUid() {
         return uid;
     }
@@ -33,7 +37,6 @@ public class User {
         this.uid = uid;
     }
 
-    @Column(name = "username", nullable = false)
     public String getUsername() {
         return username;
     }
@@ -42,7 +45,6 @@ public class User {
         this.username = username;
     }
 
-    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -51,7 +53,6 @@ public class User {
         this.password = password;
     }
 
-    @Column(name = "salt", nullable = false)
     public String getSalt() {
         return salt;
     }
@@ -60,7 +61,6 @@ public class User {
         this.salt = salt;
     }
 
-    @Column(name = "created_at", nullable = false)
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -71,7 +71,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [id=" + uid + ", username=" + username + ", password=" + password + ", salt=" + salt
-                + ", created at="+ createdAt.toString() + "]";
+        return "User [uid=" + uid + ", username=" + username + ", password=" + password + ", salt=" + salt
+                + ", created at=" + createdAt.toString() + "]";
     }
 }
