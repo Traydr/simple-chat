@@ -30,8 +30,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "gid"))
     private List<Group> joinedGroups;
 
-    @OneToMany(mappedBy="owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Group> ownedGroups;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "uid")
+    private Session session;
 
     public User(String username) {
         this.username = username;
