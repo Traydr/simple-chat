@@ -13,6 +13,7 @@ List of all tables:
 - Group
   - gid PK
   - name
+  - owner
 - Messages
   - mid PK 
   - uid 
@@ -27,6 +28,7 @@ List of all tables:
   - token
   - expire
 
+## TODO: Update sql and graph
 ![Database graph](images/img.png)
 
 ```postgresql
