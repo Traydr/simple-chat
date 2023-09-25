@@ -1,13 +1,12 @@
-package dev.traydr.simplechat.resources;
+package dev.traydr.simplechat.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/status")
-public class StatusResource {
+public class StatusController {
     @GetMapping("/server")
     public String serverStatus() {
         return "Still here!";
