@@ -16,6 +16,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
+    /*
+    TODO: Add authentication to each endpoint
+        - Look into use @ tags to authenticate
+    TODO: Do not return user passwords
+    TODO: Return Token when registration complete
+    TODO: User requires method to search by username to get id
+     */
+
     @Autowired
     private UserRepository userRepository;
 
