@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -21,6 +23,15 @@ public class User {
     private String salt;
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
+    @ManyToMany
+    @JoinTable(
+            name = "joined_groups",
+            joinColumns = @JoinColumn(name = "uid"),
+            inverseJoinColumns = @JoinColumn(name = "gid"))
+    private List<Group> joinedGroups;
+
+    @OneToMany(mappedBy="owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Group> ownedGroups;
 
     public User(String username) {
         this.username = username;

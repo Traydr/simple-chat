@@ -2,6 +2,9 @@ package dev.traydr.simplechat.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "groups")
 public class Group {
@@ -10,6 +13,12 @@ public class Group {
     private Long gid;
     @Column(name = "name", nullable = false)
     private String name;
+    @ManyToMany(mappedBy = "joinedGroups")
+    private List<User> joinedUsers;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="owner_id", nullable=false)
+    private User owner;
 
     public Group(String name) {
         this.name = name;
