@@ -1,7 +1,5 @@
 package dev.traydr.simplechat.core;
 
-import dev.traydr.simplechat.entities.Group;
-import dev.traydr.simplechat.entities.User;
 import dev.traydr.simplechat.repositories.GroupRepository;
 import dev.traydr.simplechat.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
