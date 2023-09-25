@@ -23,6 +23,7 @@ css `npm run build` needs to be executed.
   - [JT: Spring Framework Annotation](https://springframework.guru/spring-framework-annotations/)
   - [MyKong: spring jpa and postgres](https://mkyong.com/spring-boot/spring-boot-spring-data-jpa-postgresql/)
   - Better guide for JPA [Javaguides: spring JPA, postgres](https://www.javaguides.net/2019/08/spring-boot-spring-data-jpa-postgresql-example.html)
+  - [Redhat: Annotations](https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform/5/html-single/hibernate_annotations_reference_guide/index#entity-mapping-association)
 - [TailwindCSS Docs](https://tailwindcss.com/docs/)
 - [Maciej Walkowiak: Spring Boot with Thymeleaf and TailwindCSS](https://maciejwalkowiak.com/blog/spring-boot-thymeleaf-tailwindcss/) 
 - [Baeldung: Introduction to Using Thymeleaf in Spring](https://www.baeldung.com/thymeleaf-in-spring-mvc)
