@@ -42,10 +42,10 @@ public class UserController {
         User user = userRepository.findById(uid)
                 .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " + uid));
 
+        // TODO: revamp this
         user.setUid(userDetails.getUid());
         user.setUsername(userDetails.getUsername());
         user.setPassword(userDetails.getPassword());
-        user.setSalt(userDetails.getSalt());
         user.setCreatedAt(userDetails.getCreatedAt());
 
         final User updatedUser = userRepository.save(user);
