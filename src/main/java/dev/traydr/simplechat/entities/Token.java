@@ -8,17 +8,32 @@ import java.sql.Date;
 @Table(name = "tokens")
 public class Token {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long tid;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
-    public User user;
+    private User user;
 
     @Column(name = "token", nullable = false)
-    public String token;
+    private String token;
 
     @Column(name = "expires_at", nullable = false)
-    public Date expires;
+    private Date expires;
 
     public Token() {
+    }
+
+    public Long getTid() {
+        return tid;
+    }
+
+    public void setTid(Long tid) {
+        this.tid = tid;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public String getToken() {
