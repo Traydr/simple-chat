@@ -25,3 +25,4 @@ List of all tables:
 - Session
   - uid FK PK
   - token
+  - expire
