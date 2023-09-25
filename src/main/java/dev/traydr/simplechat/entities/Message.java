@@ -16,7 +16,7 @@ public class Message {
     @JoinColumn(name = "uid", referencedColumnName = "uid")
     private User user;
     @ManyToOne()
-    @JoinColumn(name = "uid", referencedColumnName = "uid")
+    @JoinColumn(name = "gid", referencedColumnName = "gid")
     private Group group;
     @Column(name = "message", nullable = false)
     private String message;
