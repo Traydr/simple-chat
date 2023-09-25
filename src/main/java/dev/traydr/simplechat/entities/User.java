@@ -3,11 +3,7 @@ package dev.traydr.simplechat.entities;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -33,9 +29,8 @@ public class User {
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Group> ownedGroups;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "uid")
-    private Session session;
+    @OneToOne(mappedBy = "user")
+    private Token token;
 
     public User(String username) {
         this.username = username;

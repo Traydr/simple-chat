@@ -5,27 +5,20 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "sessions")
-public class Session {
+@Table(name = "tokens")
+public class Token {
     @Id
-    @OneToOne(mappedBy = "session")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
     public User user;
 
     @Column(name = "token", nullable = false)
     public String token;
 
-    @Column(name = "expires", nullable = false)
+    @Column(name = "expires_at", nullable = false)
     public Date expires;
 
-    public Session() {
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public Token() {
     }
 
     public String getToken() {
