@@ -14,29 +14,29 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/users")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/users")
+    @GetMapping("")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") long uid) throws ResourceNotFoundException {
         User user = userRepository.findById(uid)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + uid));
         return ResponseEntity.ok().body(user);
     }
 
-    @PostMapping("/users")
+    @PostMapping("")
     public User createUser(@Valid @RequestBody User user) {
         return userRepository.save(user);
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long uid,
                                            @Valid @RequestBody User userDetails) throws ResourceNotFoundException {
         User user = userRepository.findById(uid)
@@ -52,7 +52,7 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long uid)
             throws ResourceNotFoundException {
         User User = userRepository.findById(uid)
