@@ -1,3 +1,6 @@
+application.yml
+src/main/resources/application.properties
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -176,5 +179,4 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/node
-application.yml
-src/main/resources/application.properties
+
