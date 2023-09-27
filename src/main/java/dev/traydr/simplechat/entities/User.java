@@ -11,12 +11,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
+
     @Column(name = "username", nullable = false)
     private String username;
+
     @Column(name = "password", nullable = false)
     private String password;
+
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
+
     @ManyToMany
     @JoinTable(
             name = "joined_groups",

@@ -39,6 +39,12 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
+    @GetMapping("username/{username}")
+    public ResponseEntity<User> getUserByUsername(@PathVariable(value = "username") String username) throws ResourceNotFoundException {
+        User user = userRepository.getUserByUsername(username);
+        return ResponseEntity.ok().body(user);
+    }
+
     @PostMapping("")
     public User createUser(@Valid @RequestBody User user) {
         return userRepository.save(user);
