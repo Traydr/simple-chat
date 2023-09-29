@@ -30,7 +30,11 @@ public class UserController {
 
     @GetMapping("")
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        for (User user: users) {
+            user.setPassword("");
+        }
+        return users;
     }
 
     @GetMapping("/{id}")
