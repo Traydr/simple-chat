@@ -8,9 +8,12 @@
 </head>
 <body>
 
-
-<h1 class="mt-2 text-xl items-center" th:text="'Hello!'"/>
-
+<div class="container mx-auto items-center">
+    <h1 class="w-full">Welcome to Simple Chat!</h1>
+    <h3><a th:href="@{/users}">List of Users</a></h3>
+    <h3><a th:href="@{/register}">Register</a></h3>
+    <h3><a th:href="@{/login}">Login</a></h3>
+</div>
 
 </body>
 </html>
