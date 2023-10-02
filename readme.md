@@ -35,3 +35,7 @@ css `npm run build` needs to be executed.
   - [DigitalOcean: Postgres on Ubuntu quickstart](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart)
   - [Ubuntu: postgresql](https://ubuntu.com/server/docs/databases-postgresql)
 - [Snyk: Password Hashing](https://snyk.io/blog/password-hashing-java-applications/)
+- [HTMX](https://htmx.org/)
+  - [Marcus Obst: Handling json with Htmx](https://marcus-obst.de/blog/htmx-json-handling)
+  - [HTMX: Client Side Templates](https://htmx.org/extensions/client-side-templates/)
+  - [NunJucks](https://mozilla.github.io/nunjucks/)
