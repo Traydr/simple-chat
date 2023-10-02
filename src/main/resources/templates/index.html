@@ -5,11 +5,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <!-- this is where we refer the css file from src/main/resources/static/main.css -->
     <link th:href="@{/pico.min.css}" rel="stylesheet"/>
+    <script src="/htmx.min.js"></script>
+    <script src="/client-side-templates.js"></script>
+    <script src="/nunjucks.min.js"></script>
 </head>
 <body>
 
-<div class="">
-    <h1 class="w-full">Welcome to Simple Chat!</h1>
+<div class="container">
+    <h1 class="">Welcome to Simple Chat!</h1>
     <h3><a th:href="@{/users}">List of Users</a></h3>
     <h3><a th:href="@{/register}">Register</a></h3>
     <h3><a th:href="@{/login}">Login</a></h3>
