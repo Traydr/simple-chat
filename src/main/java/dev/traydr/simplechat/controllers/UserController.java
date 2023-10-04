@@ -47,7 +47,7 @@ public class UserController {
 
     @GetMapping("username/{username}")
     public ResponseEntity<User> getUserByUsername(@PathVariable(value = "username") String username) throws ResourceNotFoundException {
-        User user = userRepository.getUserByUsername(username);
+        User user = userRepository.findByUsername(username);
         user.setPassword("");
         return ResponseEntity.ok().body(user);
     }
