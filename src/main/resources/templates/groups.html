@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Simple Chat</title>
+    <meta th:replace="~{snippets/head-links}"/>
+</head>
+<body>
+<div th:replace="~{snippets/navbar}"></div>
+
+<div hx-ext="client-side-templates">
+    <button hx-get="/api/v1/groups"
+            hx-target="#display_groups"
+            hx-swap="innerHTML"
+            mustache-array-template="group_array">
+        Reload
+    </button>
+
+    <template id="group_array">
+        {{#data}}
+        <ul>
+            <li>{{uid}}</li>
+            <li>{{createdAt}}<li>
+            <li>{{username}}</li>
+        </ul>
+        {{/data}}
+    </template>
+
+    <div id="display_groups"></div>
+</div>
+
+<div th:replace="~{snippets/footer}"></div>
+</body>
+</html>
