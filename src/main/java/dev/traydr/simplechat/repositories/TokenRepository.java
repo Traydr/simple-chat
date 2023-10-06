@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TokenRepository extends JpaRepository<Token, Long> {
-    @Query("select 1 From Token t where t.token = :token")
-    public int ifExistsByToken(@Param("token") String token);
+    public boolean existsByToken(String token);
+    public Token findByToken(String token);
+    public Token findByUser(User user);
 }
