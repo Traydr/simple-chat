@@ -1,5 +1,6 @@
 package dev.traydr.simplechat.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -15,12 +16,14 @@ public class User {
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "joined_groups",
@@ -28,9 +31,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "gid"))
     private List<Group> joinedGroups;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Group> ownedGroups;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Token token;
 
@@ -39,6 +44,14 @@ public class User {
     }
 
     public User() {}
+
+    public List<Group> getJoinedGroups() {
+        return joinedGroups;
+    }
+
+    public void setJoinedGroups(List<Group> joinedGroups) {
+        this.joinedGroups = joinedGroups;
+    }
 
     public Long getUid() {
         return uid;
