@@ -10,16 +10,12 @@
 <div class="container">
     <h1 class="">Register</h1>
 
-    <form action="/api/v1/users/">
-        <label for="username">
-            Username
-            <input type="text" id="username" name="username" placeholder="username" required>
-        </label>
+    <form action="/api/v1/users/" method="post">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="username" required>
 
         <label for="password">Password</label>
-
         <input type="password" id="password" name="password" placeholder="password" required>
-        <input type="text" id="uid" name="password"  hidden="" >
 
         <button type="submit">Submit</button>
     </form>
