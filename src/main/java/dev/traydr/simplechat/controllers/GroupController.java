@@ -14,6 +14,7 @@ import java.util.List;
 public class GroupController {
     @Autowired
     private GroupRepository groupRepo;
+
     @GetMapping("")
     public List<Group> getGroups() {
         return groupRepo.findAll();

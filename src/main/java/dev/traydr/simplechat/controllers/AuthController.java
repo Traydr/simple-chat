@@ -13,12 +13,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.sql.Date;
-import java.time.LocalDate;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -32,6 +27,7 @@ public class AuthController {
     // 7 Days
     private static final int cookieMaxAge = 7 * 24 * 60 * 60;
 
+    @PostMapping("")
     public ResponseEntity<User> Login(@Valid @RequestBody User attempt, HttpServletResponse response) {
         User user = userRepo.findByUsername(attempt.getUsername());
         if (!Password.validPassword(attempt.getPassword(), user.getPassword())) {
