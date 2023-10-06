@@ -2,6 +2,7 @@ package dev.traydr.simplechat.controllers;
 
 import dev.traydr.simplechat.core.CurrentDate;
 import dev.traydr.simplechat.core.Password;
+import dev.traydr.simplechat.entities.Login;
 import dev.traydr.simplechat.entities.User;
 import dev.traydr.simplechat.exceptions.ResourceNotFoundException;
 import dev.traydr.simplechat.repositories.UserRepository;
@@ -55,10 +56,14 @@ public class UserController {
     }
 
     @PostMapping("")
-    public User createUser(@Valid @RequestBody User user) {
-        user.setPassword(Password.hashPassword(user.getPassword()));
+    public User createUser(@Valid @RequestBody Login login) {
+        User user = new User();
+        user.setUsername(login.getUsername());
+        user.setPassword(Password.hashPassword(login.getPassword()));
         user.setCreatedAt(CurrentDate.getCurrentDate(0));
-        return userRepo.save(user);
+        User response = userRepo.save(user);
+        response.setPassword("");
+        return response;
     }
 
     @PutMapping("/{id}")
