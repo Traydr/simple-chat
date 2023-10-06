@@ -1,5 +1,6 @@
 package dev.traydr.simplechat.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -10,8 +11,11 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gid;
+
     @Column(name = "name", nullable = false)
     private String name;
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "joinedGroups")
     private List<User> joinedUsers;
 
@@ -24,6 +28,22 @@ public class Group {
     }
 
     public Group() {
+    }
+
+    public List<User> getJoinedUsers() {
+        return joinedUsers;
+    }
+
+    public void setJoinedUsers(List<User> joinedUsers) {
+        this.joinedUsers = joinedUsers;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Long getGid() {
