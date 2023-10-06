@@ -20,38 +20,24 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-    /*
-    TODO: Add authentication to each endpoint
-        - Look into use @ tags to authenticate
-    TODO: Do not return user passwords
-    TODO: Return Token when registration complete
-    TODO: User requires method to search by username to get id
-     */
-
     @Autowired
     private UserRepository userRepo;
 
     @GetMapping("")
     public List<User> getAllUsers() {
-        List<User> users = userRepo.findAll();
-        for (User user: users) {
-            user.setPassword("");
-        }
-        return users;
+        return userRepo.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") long uid) throws ResourceNotFoundException {
         User user = userRepo.findById(uid)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + uid));
-        user.setPassword("");
         return ResponseEntity.ok().body(user);
     }
 
     @GetMapping("username/{username}")
     public ResponseEntity<User> getUserByUsername(@PathVariable(value = "username") String username) throws ResourceNotFoundException {
         User user = userRepo.findByUsername(username);
-        user.setPassword("");
         return ResponseEntity.ok().body(user);
     }
 
@@ -61,9 +47,7 @@ public class UserController {
         user.setUsername(login.getUsername());
         user.setPassword(Password.hashPassword(login.getPassword()));
         user.setCreatedAt(CurrentDate.getCurrentDate(0));
-        User response = userRepo.save(user);
-        response.setPassword("");
-        return response;
+        return userRepo.save(user);
     }
 
     @PutMapping("/{id}")
