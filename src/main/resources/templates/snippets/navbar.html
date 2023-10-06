@@ -2,8 +2,34 @@
     <ul>
         <li><strong>SC</strong></li>
     </ul>
-    <ul>
+    <ul hidden id="logged-in">
+        <li><a href="/groups">Groups</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/settings">Settings</a></li>
+    </ul>
+    <ul id="logged-out">
         <li><a href="/register">Register</a></li>
         <li><a href="/login" role="button">Login</a></li>
     </ul>
 </nav>
+
+<script lang="js">
+    const cookieExists = getCookie("uid")
+    let loggedIn = false;
+    if (cookieExists !== null && +cookieExists >= 0) {
+        loggedIn = true;
+    }
+
+    if (loggedIn) {
+        const logOut = document.getElementById("logged-out")
+        const logIn = document.getElementById("logged-in")
+
+        logOut.hidden = true
+        logIn.hidden = false
+    }
+
+    function getCookie(name) {
+        const match = document.cookie.match(RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
+        return match ? match[1] : null;
+    }
+</script>
