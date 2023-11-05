@@ -12,7 +12,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CurrencyEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,14 +21,16 @@ import java.util.Base64;
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
-    @Autowired
-    private UserRepository userRepo;
-
-    @Autowired
-    private TokenRepository tokenRepo;
+    private final UserRepository userRepo;
+    private final TokenRepository tokenRepo;
 
     // 7 Days
     private static final int cookieMaxAge = 7 * 24 * 60 * 60;
+
+    public AuthController(UserRepository userRepo, TokenRepository tokenRepo) {
+        this.userRepo = userRepo;
+        this.tokenRepo = tokenRepo;
+    }
 
     @PostMapping("")
     public ResponseEntity<User> Login(@Valid @RequestBody Login attempt, HttpServletResponse response) {
@@ -39,7 +40,7 @@ public class AuthController {
         }
 
         Token existingToken = tokenRepo.findByUser(user);
-        String stringToken = "";
+        String stringToken;
         if (existingToken != null && existingToken.getExpires().after(CurrentDate.getCurrentDate(0))) {
             existingToken.setExpires(CurrentDate.getCurrentDate(cookieMaxAge));
             tokenRepo.save(existingToken);
