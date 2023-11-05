@@ -1,5 +1,6 @@
 package dev.traydr.simplechat.controllers;
 
+import dev.traydr.simplechat.repositories.UserRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,13 +8,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/status")
 public class StatusController {
+    private final UserRepository userRepo;
+
+    public StatusController(UserRepository userRepo) {
+        this.userRepo = userRepo;
+    }
+
     @GetMapping("/server")
     public String serverStatus() {
-        return "Still here!";
+        return "Server Up";
     }
 
     @GetMapping("/db")
     public String databaseStatus() {
-        return "Not implemeted";
+        userRepo.findAll();
+        return "Database Connected";
     }
 }
