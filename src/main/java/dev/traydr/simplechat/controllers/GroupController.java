@@ -5,7 +5,6 @@ import dev.traydr.simplechat.entities.User;
 import dev.traydr.simplechat.exceptions.ResourceNotFoundException;
 import dev.traydr.simplechat.repositories.GroupRepository;
 import dev.traydr.simplechat.repositories.TokenRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -61,4 +60,4 @@ public class GroupController {
         toJoin.setJoinedUsers(users);
         return groupRepo.save(toJoin);
     }
- }
+}

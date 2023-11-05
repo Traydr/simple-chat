@@ -19,7 +19,7 @@ public class Group {
     @ManyToMany(mappedBy = "joinedGroups")
     private List<User> joinedUsers;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
