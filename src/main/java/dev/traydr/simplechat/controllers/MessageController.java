@@ -41,7 +41,7 @@ public class MessageController {
         User user = tokenRepo.findByToken(token).getUser();
         Group group = groupRepo.findById(message.getGid()).orElseThrow();
         Message msg = new Message(user, group, message.getData());
-        messageRepo.save(msg);
+        messageRepo.saveAndFlush(msg);
         return msg;
     }
 
@@ -51,7 +51,7 @@ public class MessageController {
         Message msg = messageRepo.findById(mid).orElseThrow();
         if (msg.getUser().equals(user)) {
             msg.setMessage(message.getData());
-            messageRepo.save(msg);
+            messageRepo.saveAndFlush(msg);
             return msg;
         } else {
             return null;

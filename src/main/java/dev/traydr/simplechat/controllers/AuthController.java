@@ -43,7 +43,7 @@ public class AuthController {
         String stringToken;
         if (existingToken != null && existingToken.getExpires().after(CurrentDate.getCurrentDate(0))) {
             existingToken.setExpires(CurrentDate.getCurrentDate(cookieMaxAge));
-            tokenRepo.save(existingToken);
+            tokenRepo.saveAndFlush(existingToken);
             stringToken = existingToken.getToken();
         } else {
             // Creating Token
@@ -57,7 +57,7 @@ public class AuthController {
             token.setUser(user);
             token.setToken(stringToken);
             token.setExpires(CurrentDate.getCurrentDate(cookieMaxAge));
-            tokenRepo.save(token);
+            tokenRepo.saveAndFlush(token);
         }
 
         // Set Cookies

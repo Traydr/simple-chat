@@ -50,21 +50,18 @@ public class UserController {
         user.setUsername(login.getUsername());
         user.setPassword(Password.hashPassword(login.getPassword()));
         user.setCreatedAt(CurrentDate.getCurrentDate(0));
-        return userRepo.save(user);
+        return userRepo.saveAndFlush(user);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long uid,
-                                           @Valid @RequestBody User userDetails) throws ResourceNotFoundException {
-        // TODO: revamp this
-        User user = userRepo.findById(uid)
-                .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " + uid));
+    public User updateUser(@PathVariable(value = "id") Long uid,
+                                           @Valid @RequestBody User userDetails) {
+        User user = userRepo.findById(uid).orElseThrow();
 
         user.setUsername(userDetails.getUsername());
         user.setPassword(userDetails.getPassword());
 
-        final User updatedUser = userRepo.save(user);
-        return ResponseEntity.ok(updatedUser);
+        return userRepo.saveAndFlush(user);
     }
 
     @DeleteMapping("/{id}")
