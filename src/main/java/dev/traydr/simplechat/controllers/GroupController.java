@@ -14,11 +14,13 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/groups")
 public class GroupController {
-    @Autowired
-    private GroupRepository groupRepo;
+    private final GroupRepository groupRepo;
+    private final TokenRepository tokenRepo;
 
-    @Autowired
-    private TokenRepository tokenRepo;
+    public GroupController(GroupRepository groupRepo, TokenRepository tokenRepo) {
+        this.groupRepo = groupRepo;
+        this.tokenRepo = tokenRepo;
+    }
 
     @GetMapping("")
     public List<Group> getGroups() {

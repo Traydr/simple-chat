@@ -20,8 +20,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-    @Autowired
-    private UserRepository userRepo;
+    private final UserRepository userRepo;
+
+    public UserController(UserRepository userRepo) {
+        this.userRepo = userRepo;
+    }
 
     @GetMapping("")
     public List<User> getAllUsers() {
