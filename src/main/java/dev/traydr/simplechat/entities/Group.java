@@ -3,6 +3,7 @@ package dev.traydr.simplechat.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -60,6 +61,10 @@ public class Group {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addUser(User user) {
+        this.joinedUsers.add(user);
     }
 
     @Override
