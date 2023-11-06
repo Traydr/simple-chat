@@ -7,7 +7,7 @@
 <body>
 <div th:replace="~{snippets/navbar}"></div>
 
-<div hx-ext="client-side-templates">
+<div class="container" hx-ext="client-side-templates">
     <button hx-get="/api/v1/groups"
             hx-target="#display_groups"
             hx-swap="innerHTML"
@@ -17,11 +17,11 @@
 
     <template id="group_array">
         {{#data}}
-        <ul>
-            <li>{{gid}}</li>
-            <li>Name: {{name}}</li>
-            <li>Owner: {{owner.username}}</li>
-        </ul>
+        <article>
+            <header><b>{{name}}</b></header>
+            Owned by: <i>{{owner.username}}</i>
+            <button onclick="joinButton({{{gid}}})">Join</button>
+        </article>
         {{/data}}
     </template>
 
@@ -31,3 +31,10 @@
 <div th:replace="~{snippets/footer}"></div>
 </body>
 </html>
+
+<script lang="js">
+    function joinButton(gid) {
+        fetch("/api/v1/groups/join?groupId=" + gid, {method: 'PUT'})
+        console.log("joined")
+    }
+</script>

@@ -49,9 +49,13 @@ public class GroupController {
 
     @Transactional
     @PutMapping("join")
-    public Group joinGroup(@CookieValue("token") String token, @RequestParam("groupId") long groupId) {
+    public Group joinGroup(@CookieValue("token") String token, @RequestParam("groupId") long groupId) throws Exception {
         User requester = tokenRepo.findByToken(token).getUser();
         Group group = groupRepo.findById(groupId).orElseThrow();
+
+        if (group.getJoinedUsers().contains(requester)) {
+            throw new Exception("User already in group");
+        }
 
         group.addUser(requester);
         requester.addGroup(group);
