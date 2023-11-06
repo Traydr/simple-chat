@@ -3,6 +3,7 @@ package dev.traydr.simplechat.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -64,6 +65,10 @@ public class Group {
     }
 
     public void addUser(User user) {
+        if (this.joinedUsers == null) {
+            this.joinedUsers = new ArrayList<>();
+        }
+
         this.joinedUsers.add(user);
     }
 

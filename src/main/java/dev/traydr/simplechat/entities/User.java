@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,7 @@ public class User {
     private Date createdAt;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "joined_groups",
             joinColumns = @JoinColumn(name = "uid"),
@@ -32,7 +33,7 @@ public class User {
     private List<Group> joinedGroups;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private List<Group> ownedGroups;
 
     @JsonIgnore
@@ -83,6 +84,13 @@ public class User {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void addGroup(Group group) {
+        if (this.joinedGroups == null) {
+            this.joinedGroups = new ArrayList<>();
+        }
+        this.joinedGroups.add(group);
     }
 
     @Override

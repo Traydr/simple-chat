@@ -5,10 +5,10 @@ import dev.traydr.simplechat.entities.User;
 import dev.traydr.simplechat.exceptions.ResourceNotFoundException;
 import dev.traydr.simplechat.repositories.GroupRepository;
 import dev.traydr.simplechat.repositories.TokenRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/groups")
@@ -26,6 +26,7 @@ public class GroupController {
         return groupRepo.findAll();
     }
 
+    @Transactional
     @PostMapping("")
     public Group createGroup(@CookieValue("token") String token, @RequestParam("name") String name) {
         Group group = new Group();
@@ -34,9 +35,10 @@ public class GroupController {
         User owner = tokenRepo.findByToken(token).getUser();
 
         group.setOwner(owner);
-        List<User> joinedUsers = group.getJoinedUsers();
-        joinedUsers.add(owner);
-        return groupRepo.save(group);
+
+        group.addUser(owner);
+        owner.addGroup(group);
+        return groupRepo.saveAndFlush(group);
     }
 
     @GetMapping("/joined")
@@ -45,19 +47,30 @@ public class GroupController {
         return requester.getJoinedGroups();
     }
 
+    @Transactional
     @PutMapping("join")
-    public Group joinGroup(@CookieValue("token") String token, @RequestParam("groupId") long groupId) throws ResourceNotFoundException {
+    public Group joinGroup(@CookieValue("token") String token, @RequestParam("groupId") long groupId) {
         User requester = tokenRepo.findByToken(token).getUser();
-        Optional<Group> group = groupRepo.findById(groupId);
+        Group group = groupRepo.findById(groupId).orElseThrow();
 
-        if (group.isEmpty()) {
-            throw new ResourceNotFoundException("Group id not found");
+        group.addUser(requester);
+        requester.addGroup(group);
+
+        groupRepo.saveAndFlush(group);
+
+        return group;
+    }
+
+    @DeleteMapping("")
+    public boolean deleteGroup(@CookieValue("token") String token, @RequestParam("gid") long groupId) {
+        User requester = tokenRepo.findByToken(token).getUser();
+        Group group = groupRepo.findById(groupId).orElseThrow();
+
+        if (group.getOwner().equals(requester)) {
+            groupRepo.delete(group);
+            return true;
+        } else {
+            return false;
         }
-
-        Group toJoin = groupRepo.findById(groupId).get();
-        List<User> users = toJoin.getJoinedUsers();
-        users.add(requester);
-        toJoin.setJoinedUsers(users);
-        return groupRepo.save(toJoin);
     }
 }
