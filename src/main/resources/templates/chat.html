@@ -42,7 +42,8 @@
     <div id="display_chat"></div>
 
     <div class="container">
-        <form hx-post="/api/v1/messages">
+        <form hx-post="/api/v1/messages"
+              hx-on::after-request="location.reload()">
             <input
                     type="text"
                     name="data"
@@ -99,6 +100,7 @@
 
         let template = document.getElementById("message_array").innerHTML;
         document.getElementById("display_chat").innerHTML = Mustache.render(template, messages)
+        forceElementIntoView()
 
         // Message Form
         const gidForm = document.getElementById("gid_message")
@@ -115,5 +117,20 @@
 
     function deleteMessage(mid) {
         fetch("/api/v1/messages?mid=" + mid, {method: "DELETE"})
+    }
+
+    function forceElementIntoView() {
+        const divElement = document.getElementById('display_chat'); // Replace 'yourDivId' with the actual ID of your div, or use other methods to select the div.
+
+        if (divElement) {
+            // Step 2: Find the last article element within the div
+            const articleElements = divElement.querySelectorAll('article');
+            const lastArticleElement = articleElements[articleElements.length - 1];
+
+            if (lastArticleElement) {
+                // Step 3: Focus on the last article element
+                lastArticleElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
     }
 </script>

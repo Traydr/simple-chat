@@ -30,7 +30,7 @@ public class MessageController {
                                      @RequestParam("gid") long gid) {
         User user = tokenRepo.findByToken(token).getUser();
         Group group = groupRepo.findById(gid).orElseThrow();
-        if (group.getOwner().equals(user)) {
+        if (group.getJoinedUsers().contains(user)) {
             return messageRepo.findByGroup(group);
         } else {
             return null;
