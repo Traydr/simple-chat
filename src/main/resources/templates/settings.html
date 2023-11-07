@@ -7,6 +7,38 @@
 <body>
 <div th:replace="~{snippets/navbar}"></div>
 
+<div class="container">
+    <div hx-confirm="Are you sure?">
+        <button hx-delete="/api/v1/user">
+            Delete My Account
+        </button>
+        <button hx-put="/account">
+            Update My Account
+        </button>
+        <button onclick="logout()">
+            Logout
+        </button>
+    </div>
+</div>
+
 <div th:replace="~{snippets/footer}"></div>
 </body>
 </html>
+
+<script lang="js">
+    function logout() {
+        deleteAllCookies()
+        window.location.replace("/")
+    }
+
+    function deleteAllCookies() {
+        const cookies = document.cookie.split(";");
+
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i];
+            const eqPos = cookie.indexOf("=");
+            const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
+    }
+</script>

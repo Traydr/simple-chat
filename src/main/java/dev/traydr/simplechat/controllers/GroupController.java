@@ -26,6 +26,11 @@ public class GroupController {
         return groupRepo.findAll();
     }
 
+    @GetMapping("single")
+    public Group getSpecificGroup(@RequestParam("gid") long groupId) {
+        return groupRepo.findById(groupId).orElseThrow();
+    }
+
     @Transactional
     @PostMapping("")
     public Group createGroup(@CookieValue("token") String token, @RequestParam("name") String name) {

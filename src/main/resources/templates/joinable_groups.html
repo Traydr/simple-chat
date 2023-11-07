@@ -38,6 +38,19 @@
     </template>
 </div>
 
+<div class="container">
+    <form hx-post="/api/v1/groups">
+        <input
+                type="text"
+                name="name"
+                placeholder="Group Name"
+                aria-label="Group Name"
+                required
+        />
+        <button type="submit" class="contrast">Create</button>
+    </form>
+</div>
+
 <div th:replace="~{snippets/footer}"></div>
 </body>
 </html>

@@ -42,6 +42,11 @@ public class MessageController {
                                  @Valid @ModelAttribute MessageData message) {
         User user = tokenRepo.findByToken(token).getUser();
         Group group = groupRepo.findById(message.getGid()).orElseThrow();
+
+        if (!group.getJoinedUsers().contains(user)) {
+            return null;
+        }
+
         Message msg = new Message(user, group, message.getData());
         messageRepo.saveAndFlush(msg);
         return msg;

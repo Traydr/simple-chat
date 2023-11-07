@@ -7,33 +7,61 @@
 <body>
 <div th:replace="~{snippets/navbar}"></div>
 
-<div class="container" hx-ext="client-side-templates">
-    <button hx-get="/api/v1/groups/joined"
-            hx-target="#display_groups"
-            hx-swap="innerHTML"
-            mustache-array-template="group_array">
-        Reload
-    </button>
+<div class="grid">
+    <div>
+        <h1 style="text-align:center" id="group_name"></h1>
+    </div>
+    <div>
+        <div hx-confirm="Are you sure?">
+            <button id="group_delete" style="width: 50%; " onclick="deleteGroup()" hidden>Delete
+                Group
+            </button>
+        </div>
+    </div>
+</div>
 
-    <template id="group_array">
-        {{#data}}
+<div class="container" hx-ext="client-side-templates">
+    <template id="message_array">
+        {{#.}}
         <article>
             <div class="grid">
                 <div>
                     <hgroup>
-                        <h1>{{name}}</h1>
-                        <h2>{{owner.username}}</h2>
+                        <h1>{{user.username}}</h1>
+                        <h2>{{message}}</h2>
                     </hgroup>
+                    <i>Sent at {{sentAt}}</i>
                 </div>
                 <div>
-                    <button onclick="enterChat({{{gid}}})">Enter</button>
                 </div>
             </div>
         </article>
-        {{/data}}
+        {{/.}}
     </template>
 
-    <div id="display_groups"></div>
+    <div id="display_chat"></div>
+
+    <div class="container">
+        <form hx-post="/api/v1/messages">
+            <input
+                    type="text"
+                    name="data"
+                    placeholder="Message"
+                    aria-label="Message"
+                    required
+            />
+            <input
+                    id="gid_message"
+                    type="number"
+                    name="gid"
+                    placeholder="gid"
+                    aria-label="gid"
+                    required
+                    hidden
+            />
+            <button type="submit" class="contrast">Submit</button>
+        </form>
+    </div>
 </div>
 
 <div th:replace="~{snippets/footer}"></div>
@@ -41,7 +69,51 @@
 </html>
 
 <script lang="js">
-    function enterChat(gid) {
-        console.log("Entered " + gid)
+    loadData()
+
+    async function loadData() {
+        // Group Title
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString)
+        const gid = urlParams.get("gid")
+
+        const groupName = document.getElementById("group_name")
+        const groupDelete = document.getElementById("group_delete")
+
+        const groupResponse = await fetch("/api/v1/groups/single?gid=" + gid)
+        const userResponse = await fetch("/api/v1/user/")
+
+        const group = await groupResponse.json()
+        const user = await userResponse.json()
+
+        groupName.innerText = group.name
+
+        if (user.uid === group.owner.uid) {
+            groupDelete.setAttribute("hx-delete", "/api/v1/groups?gid=" + gid)
+            groupDelete.hidden = false
+        }
+
+        // Messages
+        const messageResponse = await fetch("/api/v1/messages?gid=" + gid)
+        const messages = await messageResponse.json()
+
+        let template = document.getElementById("message_array").innerHTML;
+        document.getElementById("display_chat").innerHTML = Mustache.render(template, messages)
+
+        // Message Form
+        const gidForm = document.getElementById("gid_message")
+        gidForm.value = gid
+    }
+
+    function deleteGroup() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString)
+        const gid = urlParams.get("gid")
+
+        fetch("/api/v1/groups?gid=" + gid, {method: "DELETE"})
+    }
+
+    function deleteMessage(mid) {
+        fetch("/api/v1/messages?mid=" + mid, {method: "DELETE"})
     }
 </script>

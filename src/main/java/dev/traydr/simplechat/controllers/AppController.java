@@ -35,8 +35,13 @@ public class AppController {
         return "chat";
     }
 
-    @GetMapping("/users")
-    public String users() {
-        return "users";
+    @GetMapping("/settings")
+    public String settings() {
+        return "settings";
+    }
+
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
     }
 }

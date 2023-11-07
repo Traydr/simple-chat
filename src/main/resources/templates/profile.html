@@ -7,6 +7,23 @@
 <body>
 <div th:replace="~{snippets/navbar}"></div>
 
+<div class="container" hx-ext="client-side-templates">
+    <button hx-get="/api/v1/user/"
+            hx-swap="outerHTML"
+            hx-trigger="load"
+            mustache-array-template="profile_template">
+        Load
+    </button>
+
+    <template id="profile_template">
+        <article>
+            Uid: {{uid}} <br>
+            Username: {{username}} <br>
+            Created On: {{createdAt}}
+        </article>
+    </template>
+</div>
+
 <div th:replace="~{snippets/footer}"></div>
 </body>
 </html>
