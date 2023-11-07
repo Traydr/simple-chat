@@ -13,23 +13,23 @@
     </ul>
 </nav>
 
+
 <script lang="js">
-    const cookieExists = getCookie("uid")
-    let loggedIn = false;
-    if (cookieExists !== null && +cookieExists >= 0) {
-        loggedIn = true;
-    }
+    checkLoginStatus()
+    setInterval(checkLoginStatus, 10000)
 
-    if (loggedIn) {
-        const logOut = document.getElementById("logged-out")
-        const logIn = document.getElementById("logged-in")
+    function checkLoginStatus() {
+        let loggedIn = false;
+        if (document.cookie.split(";").some((item) => item.trim().startsWith("token="))) {
+            loggedIn = true;
+        }
 
-        logOut.hidden = true
-        logIn.hidden = false
-    }
+        if (loggedIn) {
+            const logOut = document.getElementById("logged-out")
+            const logIn = document.getElementById("logged-in")
 
-    function getCookie(name) {
-        const match = document.cookie.match(RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
-        return match ? match[1] : null;
+            logOut.hidden = true
+            logIn.hidden = false
+        }
     }
 </script>
