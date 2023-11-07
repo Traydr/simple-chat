@@ -26,7 +26,8 @@ public class MessageController {
     }
 
     @GetMapping("")
-    public List<Message> getMessages(@CookieValue("token") String token, @RequestParam("gid") long gid) {
+    public List<Message> getMessages(@CookieValue("token") String token,
+                                     @RequestParam("gid") long gid) {
         User user = tokenRepo.findByToken(token).getUser();
         Group group = groupRepo.findById(gid).orElseThrow();
         if (group.getOwner().equals(user)) {
@@ -37,7 +38,8 @@ public class MessageController {
     }
 
     @PostMapping("")
-    public Message createMessage(@CookieValue("token") String token, @Valid @RequestBody MessageData message) {
+    public Message createMessage(@CookieValue("token") String token,
+                                 @Valid @ModelAttribute MessageData message) {
         User user = tokenRepo.findByToken(token).getUser();
         Group group = groupRepo.findById(message.getGid()).orElseThrow();
         Message msg = new Message(user, group, message.getData());
@@ -46,7 +48,9 @@ public class MessageController {
     }
 
     @PutMapping("")
-    public Message updateMessage(@CookieValue("token") String token, @RequestParam("mid") long mid, @Valid @RequestBody MessageData message) {
+    public Message updateMessage(@CookieValue("token") String token,
+                                 @RequestParam("mid") long mid,
+                                 @Valid @ModelAttribute MessageData message) {
         User user = tokenRepo.findByToken(token).getUser();
         Message msg = messageRepo.findById(mid).orElseThrow();
         if (msg.getUser().equals(user)) {

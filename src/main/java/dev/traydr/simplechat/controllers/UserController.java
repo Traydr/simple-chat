@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping("")
-    public User createUser(@Valid @RequestBody Login login) {
+    public User createUser(@Valid @ModelAttribute Login login) {
         User user = new User();
         user.setUsername(login.getUsername());
         user.setPassword(Password.hashPassword(login.getPassword()));
@@ -55,17 +55,21 @@ public class UserController {
 
     @PutMapping("/{id}")
     public User updateUser(@PathVariable(value = "id") Long uid,
-                                           @Valid @RequestBody User userDetails) {
+                           @Valid @ModelAttribute Login login) {
         User user = userRepo.findById(uid).orElseThrow();
 
-        user.setUsername(userDetails.getUsername());
-        user.setPassword(userDetails.getPassword());
+        if (!Password.validPassword(login.getPassword(), user.getPassword())) {
+            return null;
+        }
+        user.setUsername(login.getUsername());
+        user.setPassword(login.getPassword());
 
         return userRepo.saveAndFlush(user);
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long uid, @CookieValue(value = "token") String token)
+    public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long uid,
+                                           @CookieValue(value = "token") String token)
             throws ResourceNotFoundException {
         User User = userRepo.findById(uid)
                 .orElseThrow(() -> new ResourceNotFoundException("uid not found: " + uid));

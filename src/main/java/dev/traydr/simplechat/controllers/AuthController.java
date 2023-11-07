@@ -33,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("")
-    public ResponseEntity<User> Login(@Valid @RequestBody Login attempt, HttpServletResponse response) {
+    public ResponseEntity<User> Login(@Valid @ModelAttribute Login attempt, HttpServletResponse response) {
         User user = userRepo.findByUsername(attempt.getUsername());
         if (!Password.validPassword(attempt.getPassword(), user.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
