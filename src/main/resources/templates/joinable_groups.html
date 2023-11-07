@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Simple Chat</title>
+    <meta th:replace="~{snippets/head-links}"/>
+</head>
+<body>
+<div th:replace="~{snippets/navbar}"></div>
+
+<div class="container">
+    <h1>Groups to join</h1>
+</div>
+
+<div class="container" hx-ext="client-side-templates">
+    <button hx-get="/api/v1/groups"
+            hx-swap="outerHTML"
+            hx-trigger="load"
+            mustache-array-template="group_array">
+        Reload
+    </button>
+
+    <template id="group_array">
+        {{#data}}
+        <article>
+            <div class="grid">
+                <div>
+                    <hgroup>
+                        <h1>{{name}}</h1>
+                        <h2>Owned By: {{owner.username}}</h2>
+                    </hgroup>
+                </div>
+                <div>
+                    <button onclick="joinButton({{{gid}}})">Enter</button>
+                </div>
+            </div>
+        </article>
+        {{/data}}
+    </template>
+</div>
+
+<div th:replace="~{snippets/footer}"></div>
+</body>
+</html>
+
+<script lang="js">
+    function joinButton(gid) {
+        fetch("/api/v1/groups/join?groupId=" + gid, {method: 'PUT'})
+        console.log("joined")
+    }
+</script>

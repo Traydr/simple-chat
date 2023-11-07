@@ -8,7 +8,7 @@
 <div th:replace="~{snippets/navbar}"></div>
 
 <div class="container" hx-ext="client-side-templates">
-    <button hx-get="/api/v1/groups"
+    <button hx-get="/api/v1/groups/joined"
             hx-target="#display_groups"
             hx-swap="innerHTML"
             mustache-array-template="group_array">
@@ -18,9 +18,17 @@
     <template id="group_array">
         {{#data}}
         <article>
-            <header><b>{{name}}</b></header>
-            Owned by: <i>{{owner.username}}</i>
-            <button onclick="joinButton({{{gid}}})">Join</button>
+            <div class="grid">
+                <div>
+                    <hgroup>
+                        <h1>{{name}}</h1>
+                        <h2>{{owner.username}}</h2>
+                    </hgroup>
+                </div>
+                <div>
+                    <button onclick="enterChat({{{gid}}})">Enter</button>
+                </div>
+            </div>
         </article>
         {{/data}}
     </template>
@@ -33,8 +41,7 @@
 </html>
 
 <script lang="js">
-    function joinButton(gid) {
-        fetch("/api/v1/groups/join?groupId=" + gid, {method: 'PUT'})
-        console.log("joined")
+    function enterChat(gid) {
+        console.log("Entered " + gid)
     }
 </script>

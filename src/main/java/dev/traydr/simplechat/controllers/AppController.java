@@ -20,9 +20,19 @@ public class AppController {
         return "login";
     }
 
+    @GetMapping("/join")
+    public String joinGroups() {
+        return "joinable_groups";
+    }
+
     @GetMapping("/groups")
-    public String groups() {
-        return "groups";
+    public String myGroups() {
+        return "my_groups";
+    }
+
+    @GetMapping("/chat")
+    public String chat() {
+        return "chat";
     }
 
     @GetMapping("/users")
