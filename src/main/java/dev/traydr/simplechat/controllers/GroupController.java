@@ -26,6 +26,11 @@ public class GroupController {
         return groupRepo.findAll();
     }
 
+    @GetMapping("/without_joined")
+    public List<Group> getGroupsNotJoined(@CookieValue("token") String token) {
+        return groupRepo.getGroupsByJoinedUsersNotContains(tokenRepo.findByToken(token).getUser());
+    }
+
     @GetMapping("single")
     public Group getSpecificGroup(@RequestParam("gid") long groupId) {
         return groupRepo.findById(groupId).orElseThrow();
