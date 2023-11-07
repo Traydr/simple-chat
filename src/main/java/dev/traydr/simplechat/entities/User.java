@@ -93,6 +93,22 @@ public class User {
         this.joinedGroups.add(group);
     }
 
+    public void removeGroup(Group group) {
+        this.joinedGroups.remove(group);
+    }
+
+    @PreRemove
+    public void removeAllAssociations() {
+        for (Group group: this.joinedGroups) {
+            group.removeUser(this);
+        }
+
+        this.joinedGroups.clear();
+        this.ownedGroups.clear();
+        this.token.setUser(null);
+        this.token = null;
+    }
+
     @Override
     public String toString() {
         return "User [uid=" + uid + ", username=" + username + ", password=" + password +

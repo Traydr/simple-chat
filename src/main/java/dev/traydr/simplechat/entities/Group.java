@@ -18,7 +18,7 @@ public class Group {
     private String name;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "joinedGroups")
+    @ManyToMany(mappedBy = "joinedGroups", cascade = CascadeType.ALL)
     private List<User> joinedUsers;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -70,6 +70,21 @@ public class Group {
         }
 
         this.joinedUsers.add(user);
+    }
+
+    public void removeUser(User user) {
+        this.joinedUsers.remove(user);
+    }
+
+    @PreRemove
+    public void removeAllAssociations() {
+        for (User user: this.joinedUsers) {
+            user.removeGroup(this);
+        }
+
+        this.joinedUsers.clear();
+        this.owner.removeGroup(this);
+        this.owner = null;
     }
 
     @Override

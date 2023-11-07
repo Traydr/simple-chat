@@ -76,6 +76,8 @@ public class GroupController {
         Group group = groupRepo.findById(groupId).orElseThrow();
 
         if (group.getOwner().equals(requester)) {
+
+
             groupRepo.delete(group);
             return true;
         } else {

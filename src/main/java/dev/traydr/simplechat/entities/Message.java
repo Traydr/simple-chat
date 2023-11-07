@@ -11,10 +11,10 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mid;
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "uid", referencedColumnName = "uid")
     private User user;
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "gid", referencedColumnName = "gid")
     private Group group;
     @Column(name = "message", nullable = false)
