@@ -64,8 +64,17 @@ public class AuthController {
         Cookie tokenCookie = new Cookie("token", stringToken);
         Cookie uidCookie = new Cookie("uid", user.getUid().toString());
 
+        // Token Cookie Config
         tokenCookie.setMaxAge(cookieMaxAge);
+        tokenCookie.setAttribute("SameSite", "Lax");
+        tokenCookie.setSecure(true);
+        tokenCookie.setPath("/");
+
+        // uid Cookie Config
         uidCookie.setMaxAge(cookieMaxAge);
+        uidCookie.setAttribute("SameSite", "Lax");
+        uidCookie.setSecure(true);
+        uidCookie.setPath("/");
 
         response.addCookie(tokenCookie);
         response.addCookie(uidCookie);
