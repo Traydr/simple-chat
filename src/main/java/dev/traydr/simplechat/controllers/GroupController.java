@@ -75,6 +75,24 @@ public class GroupController {
         return group;
     }
 
+    @Transactional
+    @PutMapping("leave")
+    public Group leaveGroup(@CookieValue("token") String token, @RequestParam("groupId") long groupId) throws Exception {
+        User requester = tokenRepo.findByToken(token).getUser();
+        Group group = groupRepo.findById(groupId).orElseThrow();
+
+        if (!group.getJoinedUsers().contains(requester)) {
+            throw new Exception("User not in group");
+        }
+
+        group.removeUser(requester);
+        requester.removeGroup(group);
+
+        groupRepo.saveAndFlush(group);
+
+        return group;
+    }
+
     @DeleteMapping("")
     public boolean deleteGroup(@CookieValue("token") String token, @RequestParam("gid") long groupId) {
         User requester = tokenRepo.findByToken(token).getUser();

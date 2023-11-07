@@ -13,8 +13,11 @@
     </div>
     <div>
         <div hx-confirm="Are you sure?">
-            <button id="group_delete" style="width: 50%; " onclick="deleteGroup()" hidden>Delete
-                Group
+            <button id="group_delete" style="width: 50%; " onclick="deleteGroup()" hidden>
+                Delete Group
+            </button>
+            <button id="group_leave" style="width: 50%; " onclick="leaveGroup()" hidden>
+                Leave Group
             </button>
         </div>
     </div>
@@ -80,6 +83,8 @@
 
         const groupName = document.getElementById("group_name")
         const groupDelete = document.getElementById("group_delete")
+        const groupLeave = document.getElementById("group_leave")
+
 
         const groupResponse = await fetch("/api/v1/groups/single?gid=" + gid)
         const userResponse = await fetch("/api/v1/user/")
@@ -90,8 +95,9 @@
         groupName.innerText = group.name
 
         if (user.uid === group.owner.uid) {
-            groupDelete.setAttribute("hx-delete", "/api/v1/groups?gid=" + gid)
             groupDelete.hidden = false
+        } else {
+            groupLeave.hidden = false
         }
 
         // Messages
@@ -113,6 +119,14 @@
         const gid = urlParams.get("gid")
 
         fetch("/api/v1/groups?gid=" + gid, {method: "DELETE"})
+    }
+
+    function leaveGroup() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString)
+        const gid = urlParams.get("gid")
+
+        fetch("/api/v1/groups/leave?groupId=" + gid, {method: "PUT"})
     }
 
     function deleteMessage(mid) {
