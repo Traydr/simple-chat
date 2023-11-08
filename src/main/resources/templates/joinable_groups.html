@@ -58,7 +58,13 @@
 
 <script lang="js">
     function joinButton(gid) {
-        fetch("/api/v1/groups/join?groupId=" + gid, {method: 'PUT'})
-        console.log("joined")
+        fetch("/api/v1/groups/join?groupId=" + gid, {method: 'PUT'}).then(
+            (response) => {
+                window.location.replace('/chat?gid=' + gid)
+            },
+            (error) => {
+                window.location.reload()
+            }
+        )
     }
 </script>
