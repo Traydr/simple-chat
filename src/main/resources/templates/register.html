@@ -7,19 +7,29 @@
 <body>
 <div th:replace="~{snippets/navbar}"></div>
 
-<div class="container">
-    <h1 class="">Register</h1>
+<main class="container">
+    <article class="grid">
+        <div>
+            <hgroup>
+                <h1>Register</h1>
+                <h2></h2>
+            </hgroup>
 
-    <form hx-post="/api/v1/user">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="username" required>
+            <form hx-post="/api/v1/user"
+                  hx-on::after-request="window.location.replace('/login')">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Username" required>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="password" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password"
+                       required>
 
-        <button type="submit">Submit</button>
-    </form>
-</div>
+                <button type="submit" class="contrast">Submit</button>
+            </form>
+        </div>
+        <div></div>
+    </article>
+</main>
 
 <div th:replace="~{snippets/footer}"></div>
 </body>
