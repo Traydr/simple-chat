@@ -39,7 +39,8 @@
 </div>
 
 <div class="container">
-    <form hx-post="/api/v1/groups">
+    <form hx-post="/api/v1/groups"
+        hx-on::after-request="window.location.replace('/groups')">
         <input
                 type="text"
                 name="name"

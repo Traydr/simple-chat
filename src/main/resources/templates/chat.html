@@ -118,7 +118,14 @@
         const urlParams = new URLSearchParams(queryString)
         const gid = urlParams.get("gid")
 
-        fetch("/api/v1/groups?gid=" + gid, {method: "DELETE"})
+        fetch("/api/v1/groups?gid=" + gid, {method: "DELETE"}).then(
+            (response) => {
+                window.location.replace('/groups')
+            },
+            (error) => {
+                window.location.reload()
+            }
+        )
     }
 
     function leaveGroup() {
@@ -126,11 +133,26 @@
         const urlParams = new URLSearchParams(queryString)
         const gid = urlParams.get("gid")
 
-        fetch("/api/v1/groups/leave?groupId=" + gid, {method: "PUT"})
+        fetch("/api/v1/groups/leave?groupId=" + gid, {method: "PUT"}).then(
+            (response) => {
+                window.location.replace('/groups')
+            },
+            (error) => {
+                window.location.reload()
+            }
+        )
     }
 
     function deleteMessage(mid) {
-        fetch("/api/v1/messages?mid=" + mid, {method: "DELETE"})
+        fetch("/api/v1/messages?mid=" + mid, {method: "DELETE"}).then(
+            (response) => {
+                window.location.reload()
+            },
+            (error) => {
+                window.location.reload()
+            }
+        )
+
     }
 
     function forceElementIntoView() {
