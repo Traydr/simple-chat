@@ -8,6 +8,8 @@ import dev.traydr.simplechat.repositories.GroupRepository;
 import dev.traydr.simplechat.repositories.MessageRepository;
 import dev.traydr.simplechat.repositories.TokenRepository;
 import jakarta.validation.Valid;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,7 +49,7 @@ public class MessageController {
             return null;
         }
 
-        Message msg = new Message(user, group, message.getData());
+        Message msg = new Message(user, group, Jsoup.clean(message.getData(), Safelist.none()));
         messageRepo.saveAndFlush(msg);
         return msg;
     }
@@ -59,7 +61,7 @@ public class MessageController {
         User user = tokenRepo.findByToken(token).getUser();
         Message msg = messageRepo.findById(mid).orElseThrow();
         if (msg.getUser().equals(user)) {
-            msg.setMessage(message.getData());
+            msg.setMessage(Jsoup.clean(message.getData(), Safelist.none()));
             messageRepo.saveAndFlush(msg);
             return msg;
         } else {

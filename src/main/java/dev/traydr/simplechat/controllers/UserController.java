@@ -9,6 +9,8 @@ import dev.traydr.simplechat.exceptions.ResourceNotFoundException;
 import dev.traydr.simplechat.repositories.TokenRepository;
 import dev.traydr.simplechat.repositories.UserRepository;
 import jakarta.validation.Valid;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +49,7 @@ public class UserController {
     @PostMapping("")
     public User createUser(@Valid @ModelAttribute Login login) {
         User user = new User();
-        user.setUsername(login.getUsername());
+        user.setUsername(Jsoup.clean(login.getUsername(), Safelist.none()));
         user.setPassword(Password.hashPassword(login.getPassword()));
         user.setCreatedAt(CurrentDate.getCurrentDate(0));
         return userRepo.saveAndFlush(user);
@@ -61,7 +63,7 @@ public class UserController {
         if (!Password.validPassword(details.getOldPassword(), user.getPassword())) {
             return null;
         }
-        user.setUsername(details.getUsername());
+        user.setUsername(Jsoup.clean(details.getUsername(), Safelist.none()));
         user.setPassword(details.getNewPassword());
 
         return userRepo.saveAndFlush(user);

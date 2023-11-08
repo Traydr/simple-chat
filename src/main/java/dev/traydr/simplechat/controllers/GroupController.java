@@ -6,6 +6,8 @@ import dev.traydr.simplechat.exceptions.ResourceNotFoundException;
 import dev.traydr.simplechat.repositories.GroupRepository;
 import dev.traydr.simplechat.repositories.TokenRepository;
 import jakarta.transaction.Transactional;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,7 +42,7 @@ public class GroupController {
     @PostMapping("")
     public Group createGroup(@CookieValue("token") String token, @RequestParam("name") String name) {
         Group group = new Group();
-        group.setName(name);
+        group.setName(Jsoup.clean(name, Safelist.none()));
 
         User owner = tokenRepo.findByToken(token).getUser();
 
