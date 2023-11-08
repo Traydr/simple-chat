@@ -7,18 +7,24 @@
 <body>
 <div th:replace="~{snippets/navbar}"></div>
 
-<div class="grid">
-    <div>
-        <h1 style="text-align:center" id="group_name"></h1>
-    </div>
-    <div>
-        <div hx-confirm="Are you sure?">
-            <button id="group_delete" style="width: 50%; " onclick="deleteGroup()" hidden>
-                Delete Group
-            </button>
-            <button id="group_leave" style="width: 50%; " onclick="leaveGroup()" hidden>
-                Leave Group
-            </button>
+<div class="container">
+    <div class="grid">
+        <div>
+            <h1 style="text-align:center" id="group_name"></h1>
+        </div>
+        <div>
+            <div hx-confirm="Are you sure?">
+                <button id="group_delete"
+                        style="width: 50%; background: darkred; border-color: darkred;"
+                        onclick="deleteGroup()" hidden>
+                    Delete Group
+                </button>
+                <button id="group_leave"
+                        style="width: 50%; background: darkred; border-color: darkred;"
+                        onclick="leaveGroup()" hidden>
+                    Leave Group
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -165,7 +171,7 @@
 
             if (lastArticleElement) {
                 // Step 3: Focus on the last article element
-                lastArticleElement.scrollIntoView({ behavior: 'smooth' });
+                lastArticleElement.scrollIntoView({behavior: 'smooth'});
             }
         }
     }
