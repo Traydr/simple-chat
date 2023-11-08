@@ -9,10 +9,17 @@ and receive messages.
 
 ## Utilities
 
-### Tailwindcss
+### PicoCss
 
-This has been added to simplify css workflow, but this means that once changes are made to
-css `npm run build` needs to be executed.
+Simple CSS styling
+
+### HTMX
+
+In HTML methods
+
+### Mustache
+
+Logics-less HTML templates
 
 ## Links
 
