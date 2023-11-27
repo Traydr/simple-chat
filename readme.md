@@ -3,7 +3,7 @@
 ## Description
 
 This aims to be a simple chat app, though it acts more like a forum in terms of how it retrieves messages than a chat app.
-I specficially did not use websockets here because while, yes it would be more efficient, I would also have to spend more time learning it.
+I specficially did not use websockets here because while, yes it would be more efficient, I would also would have had to spend a lot more time implementing it.
 
 This app has groups which a user can join, where they are able to send messages.
 They are able to create, delete, join leave, groups.
